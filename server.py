@@ -19,7 +19,7 @@ async def connect_wifi():
     wlan.connect(config.WIFI_SSID, config.WIFI_PASSWORD)
 
     # Wait for connection with a timeout
-    max_wait = 10
+    max_wait = 120
     while max_wait > 0:
         if wlan.status() < 0 or wlan.status() >= 3:
             break
