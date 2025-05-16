@@ -7,8 +7,6 @@ from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY_2, PEN_P8 # type: ig
 # We're creating 100 balls with their own individual colour and 1 BG colour
 # for a total of 101 colours, which will all fit in the custom 256 entry palette!
 
-
-
 class Ball:
     def __init__(self, x, y, r, dx, dy, pen):
         self.x = x
@@ -28,12 +26,12 @@ class Image:
     text_color = [253,240,213]
     text_pen = display.create_pen(text_color[0],text_color[1],text_color[2])
 
-    bar_color = [193,18,31]
+    bar_color = [87, 204, 153]
     bar_pen = display.create_pen(bar_color[0],bar_color[1],bar_color[2])
 
     bar_height = 48
 
-    text = "Hello, world!"
+    text = "Free :)"
 
     balls = []
 
