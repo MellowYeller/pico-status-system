@@ -1,6 +1,5 @@
 import uasyncio as asyncio
 import network
-import time
 import json
 import draw
 
@@ -88,15 +87,6 @@ async def handle_http_request(reader, writer):
                     print("Parsed JSON data:", json_data)
 
                     # --- Process the JSON data here ---
-                    # This is where you would add logic based on the received JSON
-                    # For example, change screen content based on json_data['message']
-                    # or control a GPIO based on json_data['state']
-                    # Example:
-                    # if 'message' in json_data:
-                    #     global current_screen_message # Assume a global variable for screen content
-                    #     current_screen_message = json_data['message']
-                    #     print(f"Updated screen message to: {current_screen_message}")
-                    # You'll likely need to signal the screen animation task if you change state it depends on
                     if 'text' in json_data:
                         draw.image.text = json_data['text']
 
@@ -224,14 +214,3 @@ async def start_http_server():
     print('HTTP server listening on 0.0.0.0:80')
     # The server runs in the background. wait_closed keeps this task alive.
     await server.wait_closed()
-
-
-# Example placeholder for screen animation - adjust as needed for your display
-# If you want the screen to update based on received JSON, you might need
-# shared state (e.g., a global variable or an asyncio.Queue/Event) that
-# handle_http_request updates and animate_screen reads.
-
-# global current_screen_message # Declare a global variable if using one
-# current_screen_message = "Booting..."
-
-

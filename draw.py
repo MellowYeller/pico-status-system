@@ -3,10 +3,6 @@ import time
 import random
 from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY_2, PEN_P8 # type: ignore
 
-
-# We're creating 100 balls with their own individual colour and 1 BG colour
-# for a total of 101 colours, which will all fit in the custom 256 entry palette!
-
 class Ball:
     def __init__(self, x, y, r, dx, dy, pen):
         self.x = x
