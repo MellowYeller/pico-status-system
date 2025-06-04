@@ -6,13 +6,14 @@ import draw
 try:
     import config
 except ImportError:
-    print("Create a config.py file with your credentials")
+    print("Create a config.py file with your wifi credentials")
     import sys
     sys.exit()
 
+wlan = network.WLAN(network.STA_IF)
 async def connect_wifi():
     """Connect to the WiFi network."""
-    wlan = network.WLAN(network.STA_IF)
+    global wlan
     wlan.active(True)
     wlan.config(pm = 0xa11140)
     wlan.connect(config.WIFI_SSID, config.WIFI_PASSWORD)
@@ -24,15 +25,18 @@ async def connect_wifi():
             break
         max_wait -= 1
         print('waiting for connection...')
+        draw.image.ip = "Connecting..."
         await asyncio.sleep(1)
 
     if wlan.status() != 3:
         print('network connection failed')
         # Handle connection failure
+        draw.image.ip = "WiFi failure."
         return None # Indicate failure
     else:
         status = wlan.ifconfig()
         print('connected. IP = ' + status[0])
+        draw.image.ip = status[0]
         return wlan # Return the WLAN object
 
 async def handle_http_request(reader, writer):
@@ -204,7 +208,6 @@ async def handle_http_request(reader, writer):
     await writer.drain() # Ensure data is sent
     await writer.wait_closed() # Wait for the client to close the connection or timeout
     print(f"Client {addr} disconnected")
-
 
 async def start_http_server():
     """Start the asynchronous HTTP server."""

@@ -29,6 +29,12 @@ class Image:
 
     text = "Free :)"
 
+    ip = "Not connected."
+    show_ip = False
+
+    server_status = "Not started."
+    show_server_status = False
+
     balls = []
 
     def __init__(self):
@@ -63,6 +69,20 @@ class Image:
                     self.display.create_pen(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)),
                 )
             )
+
+    def draw_ip(self):
+        if self.show_ip:
+            self.display.set_pen(self.text_pen)
+            self.display.set_font("sans")
+            self.display.set_thickness(2)
+            self.display.text(self.ip, 0, 170, scale=0.5, fixed_width=1)
+
+    def draw_server_status(self):
+        if self.show_server_status:
+            self.display.set_pen(self.text_pen)
+            self.display.set_font("sans")
+            self.display.set_thickness(2)
+            self.display.text(self.server_status, 0, 90, scale=0.5, fixed_width=1)
 
     def draw_text(self):
         self.display.set_pen(self.text_pen)
@@ -105,6 +125,8 @@ class Image:
             self.draw_balls()
             self.draw_bars()
             self.draw_text()
+            self.draw_ip()
+            self.draw_server_status()
             self.display.update()
 
             await asyncio.sleep(0.0667)
